@@ -67,6 +67,5 @@ function createSearch(request, response) {
       return response.render('pages/searches/show', {searchResults: results.slice(0, sliceIndex)});
     })
     .catch(error => handleError(error, response));
-    
-  // how will we handle errors?
+  // how will we handle errors? ^^^^^^^ Like dis ^^^^^^^
 }
