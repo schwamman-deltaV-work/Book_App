@@ -14,5 +14,13 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "superagent": "^4.0.0-beta.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schwamman/Book_App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/schwamman/Book_App/issues"
+  },
+  "homepage": "https://github.com/schwamman/Book_App#readme"
 }
