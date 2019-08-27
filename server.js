@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 // API Routes
 // Renders the search form
-app.get('/', (req, res) => { 
+app.get('/', (request, response) => { 
   // Note that .ejs file extension is not required
   response.render('pages/index');
 });
@@ -28,7 +28,7 @@ app.post('/searches', createSearch);
 // Catch-all
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+app.listen(PORT, () => console.log(`I know that you came to party baby, baby, baby, baby on port: ${PORT}`));
 
 // HELPER FUNCTIONS
 function Book(info) {
