@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <%- include('../../partials/styles_link.ejs') %>
+</head>
+<body>
+    <%- include('../../partials/header.ejs') %>
+    <% searchResults.forEach(result => { %>
+      <article>
+        <img src="<%= result.image_url %>"/>
+        <h3> <%= result.name  %> </h3> 
+        <h5> <%= result.author  %> </h5>
+        <p> <%= result.description  %> </p>
+      </article>
+    <% }) %>
+</body>
+</html>

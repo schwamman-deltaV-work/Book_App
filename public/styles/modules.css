@@ -1,0 +1,28 @@
+article{
+  text-align: center;
+  background-color: lightgray ;
+  width: 90%;
+  margin: 60px auto;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
+  -moz-box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
+  box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
+}
+article img{
+  margin: 30px auto;
+  -webkit-box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
+  -moz-box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
+  box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
+}
+article h3{
+  text-decoration: underline;
+
+}
+article h5{
+  font-size: 1.5rem;
+  margin: 15px auto;
+}
+article p{
+  font-size: 1.25rem;
+  padding: 20px;
+}
