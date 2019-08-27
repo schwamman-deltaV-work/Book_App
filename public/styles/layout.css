@@ -1,0 +1,9 @@
+h1 {
+  width: 50%;
+  float: left;
+}
+
+header button {
+  float: right;
+  margin-right: 30px;
+}

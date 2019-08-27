@@ -5,14 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <%- include('../../partials/styles_link.ejs') %>
 </head>
 <body>
-  <ul>
+    <%- include('../../partials/header.ejs') %>
     <% searchResults.forEach(result => { %>
-        <h1><li><%= result.name  %></li></h1>
-        <li><%= result.author  %></li>
-        <li><%= result.description  %></li>
+      <article>
+        <img src="<%= result.image_url %>"/>
+        <h3> <%= result.name  %> </h3> 
+        <h5> <%= result.author  %> </h5>
+        <p> <%= result.description  %> </p>
+      </article>
     <% }) %>
-  </ul>
 </body>
 </html>
