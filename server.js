@@ -31,8 +31,10 @@ app.get('*', (request, response) => response.status(404).send('This route does n
 app.listen(PORT, () => console.log(`I know that you came to party baby, baby, baby, baby on port: ${PORT}`));
 
 // HELPER FUNCTIONS
-function Book(info) {
-  //Finish this constructor function
+function Book(bookData) {
+  this.name = bookData.hasOwnProperty('title') ? bookData.title : 'Unknown Title';
+  this.author = bookData.hasOwnProperty('authors') ? bookData.authors : 'Unknown Authors';
+  this.description = bookData.hasOwnProperty('description') ? bookData.description : 'No Description';
 }
 
 // No API key required
@@ -48,5 +50,6 @@ function createSearch(request, response) {
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', {searchResults: results}));
+    
   // how will we handle errors?
 }
