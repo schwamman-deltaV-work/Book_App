@@ -10,13 +10,13 @@
 <body>
     <%- include('../../partials/header.ejs') %>
     <% searchResults.forEach(result => { %>
-      <article>
+      <section>
         <img src="<%= result.image_url %>"/>
         <h3> <%= result.name  %> </h3> 
         <h5> <%= result.author  %> </h5>
         <p> <%= result.description  %> </p>
         <button id=' <%= result.isbn %> ' >Save Book<button>
-      </article>
+      </section>
     <% }) %>
 </body>
 </html>
