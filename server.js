@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 
 // Application Dependencies
@@ -58,13 +59,8 @@ function Book(bookData) {
 function createSearch(request, response) {
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  console.log(request.body);
-  console.log(request.body.search);
-
   if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
   if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
-
-  
 
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => {
@@ -93,11 +89,21 @@ function getBooks(request, response) {
     });
 }
 
-function getDetails(request, response) {
-  const SQL = `SELECT * FROM books WHERE isbn=${requestsomething}`;
-
-    return client.query(SQL)
-      .then(results => {
-        response.render('pages/books/detail', {detailResults: results.row[0]});
-      })
+function getDetails(req, res) {
+  getBookshelves()
+    .then(shelves => {
+      const SQL = 'SELECT * FROM books WHERE id=$1';
+      let values = [req.params.id];
+      client.query(SQL, values)
+        .then(results => {
+          res.render('pages/books/show', {detailResults: results.rows[0], bookshelves: shelves.rows});
+        });
+    });
 }
+
+function getBookshelves() {
+  let SQL = 'SELECT DISTINCT bookshelf FROM books ORDER BY bookshelf;';
+
+  return client.query(SQL);
+}
+
