@@ -28,6 +28,8 @@ app.get('/search', (request, response) => {
   response.render('pages/searches/new');
 });
 
+app.get('/books/:id', getDetails);
+
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
 
@@ -89,4 +91,13 @@ function getBooks(request, response) {
         response.render('pages/index', {saveResults: results.rows, count: results.rowCount});
       }
     });
+}
+
+function getDetails(request, response) {
+  const SQL = `SELECT * FROM books WHERE isbn=${request something}`
+
+    return client.query(SQL)
+      .then(results => {
+        response.render('pages/books/detail', {detailResults: results.row[0]});
+      })
 }
