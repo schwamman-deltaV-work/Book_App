@@ -94,7 +94,7 @@ function getBooks(request, response) {
 }
 
 function getDetails(request, response) {
-  const SQL = `SELECT * FROM books WHERE isbn=${request something}`
+  const SQL = `SELECT * FROM books WHERE isbn=${requestsomething}`;
 
     return client.query(SQL)
       .then(results => {
