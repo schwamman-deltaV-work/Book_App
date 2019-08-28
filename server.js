@@ -3,10 +3,14 @@
 // Application Dependencies
 const express = require('express');
 const superagent = require('superagent');
+const pg = require('pg');
+require('dotenv').config();
 
 // Application Setup
 const app = express();
 const PORT = process.env.PORT || 3000;
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
 
 // Application Middleware
 app.use(express.urlencoded({extended:true}));
@@ -16,10 +20,12 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 // API Routes
-// Renders the search form
-app.get('/', (request, response) => { 
+//Routes/renders index page with saved books or a search page if nothing saved
+app.get('/', getBooks);
+
+app.get('/search', (request, response) => { 
   // Note that .ejs file extension is not required
-  response.render('pages/index');
+  response.render('pages/searches/new');
 });
 
 // Creates a new search to the Google Books API
@@ -68,4 +74,19 @@ function createSearch(request, response) {
     })
     .catch(error => handleError(error, response));
   // how will we handle errors? ^^^^^^^ Like dis ^^^^^^^
+}
+
+function getBooks(request, response) {
+  const SQL = 'SELECT * FROM books';
+
+  return client.query(SQL)
+    .then(results => {
+      console.log(results);
+      if( results.rowCount === 0){
+        response.render('pages/searches/new');
+      }
+      else{
+        response.render('pages/index', {saveResults: results.rows, count: results.rowCount});
+      }
+    });
 }
