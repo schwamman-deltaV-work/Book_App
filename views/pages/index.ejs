@@ -12,12 +12,12 @@
     <main>
       <h2> <%= count %> Saved Books</h2>
       <% saveResults.forEach(result => { %>
-        <article>
+        <section>
           <img src="<%= result.image_url %>"/>
           <h3> <%= result.title  %> </h3> 
           <h5> <%= result.author  %> </h5>
           <p> <%= result.description  %> </p>
-        </article>
+        </section>
       <% }) %>
     </main>
   </body>
