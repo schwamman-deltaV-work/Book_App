@@ -1,0 +1,23 @@
+<form id="<%= formAction %>-form" class="hide" action="/books/<%= 'update' === formAction ? book.id : '' %>" method="post">
+  <input type="hidden" name="_method" value="<%= 'update' === formAction ? 'put' : 'post' %>">
+  <input type="text" name="title" value="<%= book.title %>" required>
+  <input type="text" name="author" value="<%= book.author %>" required>
+  <input type="text" name="isbn" value="<%= book.isbn %>">
+  <input type="text" name="image_url" value="<%= book.image_url %>">
+  <textarea name="description" cols="30" rows="5"><%= book.description %></textarea>
+  
+  <% if ('create' === formAction) { %>
+    <input type="text" name="bookshelf" placeholder="Enter a bookshelf name" required>
+  <% } else { %>
+    <select name="bookshelf" id="">
+      <% bookshelves.forEach(shelf => { 
+        let selected = ( book.bookshelf === shelf.bookshelf ) ? 'selected' : '';
+      %>
+      <option value="<%= shelf.bookshelf %>" <%= selected %> >
+        <%= shelf.bookshelf %>
+      </option>
+      <% }) %>
+    </select>
+  <% } %>
+  <button class="show-me" type="submit">Save Book</button>
+</form>

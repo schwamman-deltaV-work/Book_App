@@ -20,6 +20,7 @@
           <h3> <%= result.title  %> </h3> 
           <h5> <%= result.author  %> </h5>
           <p> <%= result.description  %> </p>
+          <p class="detail-button"><a href="/books/<%= result.id %>">View Details</a></p>
         </section>
       <% }) %>
     </main>

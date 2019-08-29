@@ -26,3 +26,7 @@ section p{
   font-size: 1.25rem;
   padding: 20px;
 }
+
+.hide {
+  display: none;
+}

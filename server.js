@@ -23,9 +23,8 @@ app.set('view engine', 'ejs');
 // API Routes
 //Routes/renders index page with saved books or a search page if nothing saved
 app.get('/', getBooks);
-
+app.post('/books', createBook);
 app.get('/search', (request, response) => { 
-  // Note that .ejs file extension is not required
   response.render('pages/searches/new');
 });
 
@@ -48,7 +47,7 @@ let httpRegex = /^(http:\/\/)/g;
 
 // HELPER FUNCTIONS
 function Book(bookData) {
-  this.name = bookData.hasOwnProperty('title') ? bookData.title : 'Unknown Title';
+  this.title = bookData.hasOwnProperty('title') ? bookData.title : 'Unknown Title';
   this.author = bookData.hasOwnProperty('authors') ? bookData.authors : 'Unknown Authors';
   this.description = bookData.hasOwnProperty('description') ? bookData.description : 'No Description';
   this.isbn = bookData.hasOwnProperty('industryIdentifiers') ? bookData.industryIdentifiers[0].identifier : 'No ISBN';
@@ -107,3 +106,13 @@ function getBookshelves() {
   return client.query(SQL);
 }
 
+function createBook(req, res){
+  let {title, author, isbn, image_url, description, bookshelf } = req.body;
+  let SQL = 'INSERT INTO books(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) RETURNING id;';
+  let values = [title, author, isbn, image_url, description, bookshelf];
+
+  client.query(SQL, values)
+    .then(result => res.redirect(`/books/${result.rows[0].id}`))
+    .catch(err => handleError(err, res));
+
+}
