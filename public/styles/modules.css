@@ -15,7 +15,6 @@ section img{
   box-shadow: 0px 7px 9px 6px rgba(0,0,0,0.56);
 }
 section h3{
-  text-decoration: underline;
 
 }
 section h5{
@@ -25,4 +24,34 @@ section h5{
 section p{
   font-size: 1.25rem;
   padding: 20px;
+}
+
+form input {
+  padding: 5px;
+}
+
+.selectButton {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.show-me {
+  margin-top: 30px;
+}
+
+#create-form {
+  padding: 0px 20px 60px 20px;
+}
+
+.hide {
+  display: none;
+}
+
+#pageTitle {
+  background-color: lightgray;
+  width: 60%;
+  margin: auto;
+  padding: 15px;
+  border-radius: 5px;
+  border: solid 3px #333333 
 }

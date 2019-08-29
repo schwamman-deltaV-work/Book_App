@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book Collection</title>
-    <%- include('../partials/styles_link.ejs') %>
-  </head>
+<html lang="en">  
+  <%- include('../partials/head.ejs') %>
   <body>
     <%- include('../partials/header.ejs') %>
     <main>
       <form action="submit">
         <input type="hidden" isbn>
       </form>
-      <h2> <%= count %> Saved Books</h2>
+      <h2 id="pageTitle"> <%= count %> Saved Books</h2>
       <% saveResults.forEach(result => { %>
         <section>
           <img src="<%= result.image_url %>"/>
           <h3> <%= result.title  %> </h3> 
           <h5> <%= result.author  %> </h5>
           <p> <%= result.description  %> </p>
+          <p class="detail-button"><a href="/books/<%= result.id %>">View Details</a></p>
         </section>
       <% }) %>
     </main>
