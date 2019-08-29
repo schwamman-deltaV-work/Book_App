@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book Collection</title>
-    <%- include('../../partials/styles_link.ejs') %>
-  </head>
+  <%- include('../../partials/head.ejs') %>
   <body>
     <%- include('../../partials/header.ejs') %>
     <main>
-      <%- include('detail.ejs') %>
+      <section>
+        <%- include('detail.ejs') %>
+        <%- include('edit', {book: detailResults, bookshelves: bookshelves, formAction: 'update'}) %>
+      </section>
     </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/app.js"></script>
   </body>
 </html>

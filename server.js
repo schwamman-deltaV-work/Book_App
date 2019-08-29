@@ -21,40 +21,30 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 // API Routes
-//Routes/renders index page with saved books or a search page if nothing saved
 app.get('/', getBooks);
 app.post('/books', createBook);
 app.get('/search', (request, response) => { 
   response.render('pages/searches/new');
 });
-
-app.get('/books/:id', getDetails);
-
-// Creates a new search to the Google Books API
 app.post('/searches', createSearch);
-
-// Catch-all
+app.get('/books/:id', getDetails);
+app.put('/books/:id', updateBook);
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
 app.listen(PORT, () => console.log(`I know that you came to party baby, baby, baby, baby on port: ${PORT}`));
 
-//Function to handle errors
 function handleError(error, response) {
   response.status(error.status || 500).send(error.message);
 }
 
-let httpRegex = /^(http:\/\/)/g;
-
-// HELPER FUNCTIONS
 function Book(bookData) {
   this.title = bookData.hasOwnProperty('title') ? bookData.title : 'Unknown Title';
   this.author = bookData.hasOwnProperty('authors') ? bookData.authors : 'Unknown Authors';
   this.description = bookData.hasOwnProperty('description') ? bookData.description : 'No Description';
   this.isbn = bookData.hasOwnProperty('industryIdentifiers') ? bookData.industryIdentifiers[0].identifier : 'No ISBN';
-  this.image_url = bookData.hasOwnProperty('imageLinks') ? bookData.imageLinks.thumbnail.replace(httpRegex, 'https://') : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
+  this.image_url = bookData.hasOwnProperty('imageLinks') ? bookData.imageLinks.thumbnail.replace(/^(http:\/\/)/g, 'https://') : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
 }
 
-// No API key required
 function createSearch(request, response) {
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
@@ -115,4 +105,14 @@ function createBook(req, res){
     .then(result => res.redirect(`/books/${result.rows[0].id}`))
     .catch(err => handleError(err, res));
 
+}
+
+function updateBook(req, res){
+  let {title, author, isbn, image_url, description, bookshelf } = req.body;
+  let SQL = 'UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
+  let values = [title, author, isbn, image_url, description, bookshelf, req.params.id];
+
+  client.query(SQL, values)
+    .then(res.redirect(`/books/${req.params.id}`))
+    .catch(error => handleError(error, res));
 }
