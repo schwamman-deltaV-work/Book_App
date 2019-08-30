@@ -5,5 +5,24 @@ h1 {
 
 header button {
   float: right;
-  margin-right: 30px;
+  margin-right: 6%;
+  margin-top: 2%;
+}
+
+header div h1 {
+  padding-left: 3%;
+  padding-top: 3%;
+}
+
+nav {
+  margin: auto;
+}
+
+nav li {
+  margin: 15px;
+  
+}
+
+.clear-div {
+  clear: both;
 }

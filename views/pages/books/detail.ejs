@@ -2,6 +2,15 @@
 <h3> <%= detailResults.title  %> </h3> 
 <h5> <%= detailResults.author  %> </h5>
 <p> <%= detailResults.description  %> </p>
-<h5>ISBN: <%= detailResults.isbn %> </h5>
-<h5>Bookshelf: <%= detailResults.bookshelf %> </h5>
-<button class="update" id="update_button">Update Details</button>
+<h6>ISBN: <%= detailResults.isbn %> </h5>
+<h6>Bookshelf: <%= detailResults.bookshelf %> </h5>
+<ul id="updateButtons">
+    <li><form class="update" action="/books/<%= detailResults.id %>" method="post">
+  
+      <input type="hidden" name="_method" value="delete">
+      <button id="delete_button">Remove Book</button>
+    </form>
+    </li>
+    <li><button class="update" id="update_button">Update Details</button></li>
+</ul>
+<div class="clear-div"></div>
