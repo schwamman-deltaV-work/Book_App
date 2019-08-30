@@ -14,11 +14,13 @@
   <br>
   <label for="description">Decription:</label>
   <textarea name="description" cols="30" rows="5" id="description"><%= book.description %></textarea>
-  
+  <br>
+  <div class="clear-div"></div>
   <% if ('create' === formAction) { %>
     <label for="bookshelf">Bookshelf:</label>
     <input type="text" name="bookshelf" placeholder="Enter a bookshelf name" id="bookshelf" required>
   <% } else { %>
+    <label for="bookshelf">Bookshelf:</label>
     <select name="bookshelf" id="">
       <% bookshelves.forEach(shelf => { 
         let selected = ( book.bookshelf === shelf.bookshelf ) ? 'selected' : '';

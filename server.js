@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
 /* eslint-disable comma-dangle */
 'use strict';
 
@@ -5,6 +8,7 @@
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
+const methodOverride = require('method-override');
 require('dotenv').config();
 
 // Application Setup
@@ -20,6 +24,15 @@ app.use(express.static('public'));
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
+//Overides methods for app.put and app.delete routes
+app.use(methodOverride((req, res) => {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    let method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}));
+
 // API Routes
 app.get('/', getBooks);
 app.post('/books', createBook);
@@ -29,6 +42,7 @@ app.get('/search', (request, response) => {
 app.post('/searches', createSearch);
 app.get('/books/:id', getDetails);
 app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
 app.listen(PORT, () => console.log(`I know that you came to party baby, baby, baby, baby on port: ${PORT}`));
@@ -68,7 +82,6 @@ function getBooks(request, response) {
 
   return client.query(SQL)
     .then(results => {
-      console.log(results);
       if( results.rowCount === 0){
         response.render('pages/searches/new');
       }
@@ -96,7 +109,7 @@ function getBookshelves() {
   return client.query(SQL);
 }
 
-function createBook(req, res){
+function createBook(req, res) {
   let {title, author, isbn, image_url, description, bookshelf } = req.body;
   let SQL = 'INSERT INTO books(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) RETURNING id;';
   let values = [title, author, isbn, image_url, description, bookshelf];
@@ -107,12 +120,21 @@ function createBook(req, res){
 
 }
 
-function updateBook(req, res){
+function updateBook(req, res) {
   let {title, author, isbn, image_url, description, bookshelf } = req.body;
   let SQL = 'UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
   let values = [title, author, isbn, image_url, description, bookshelf, req.params.id];
 
   client.query(SQL, values)
     .then(res.redirect(`/books/${req.params.id}`))
+    .catch(error => handleError(error, res));
+}
+
+function deleteBook(req, res) {
+  let SQL = 'DELETE FROM books WHERE id=$1;';
+  let values = [req.params.id];
+
+  client.query(SQL, values)
+    .then(res.redirect('/'))
     .catch(error => handleError(error, res));
 }

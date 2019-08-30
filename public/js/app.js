@@ -5,6 +5,10 @@ $('.selectButton').click(function() {
 });
 
 $('#update_button').click(function() {
-  console.log('Clicked');
-  $('.hide').toggleClass('hide');
-})
+  $('#update-form').toggleClass('hide');
+});
+
+$('#hamburglar').click(function() {
+  console.log('clicked');
+  $('nav').toggleClass('hide_nav');
+});

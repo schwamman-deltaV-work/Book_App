@@ -4,23 +4,27 @@
   <body>
     <%- include('../../partials/header.ejs') %>
     <main>
-      <h4>Search by Title or Author</h4>
-      <form action="/searches" method="post">
-        <input type="text" name="search" placeholder="Enter a title or author" required>
+      <h2 id="pageTitle">Search</h2>
+      <form id="search-form" action="/searches" method="post">
+        <input class="textInput" type="text" name="search" placeholder="Enter a title or author" required>
+        <br>
         <fieldset>
           <label for="title">
             <span>Title</span>
-            <input type="radio" name="search" value="title" required>
+            <input class="radio" type="radio" name="search" value="title" required>
           </label>
         </fieldset>
         <fieldset>
           <label for="author">
             <span>Author</span>
-            <input type="radio" name="search" value="author" required>
+            <input class="radio" type="radio" name="search" value="author" required>
           </label>
         </fieldset>
+        <br>
         <button type="submit">Search the Google Books API</button>
       </form>
     </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/app.js"></script>
   </body>
 </html>
